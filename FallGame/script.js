@@ -1,6 +1,9 @@
+var game = document.getElementById("game");
 var character = document.getElementById("character");
+
 var interval;
 var bothkeys = 0;
+var counter = 0;
 
 function moveLeft(){
     var left = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
@@ -34,3 +37,26 @@ document.addEventListener("keyup", event => {
     bothkeys = 0;
 });
 
+setInterval(function(){
+var blockLast = document.getElementById("block"+ (counter-1));
+var holeLast = document.getElementById("hole"+ (counter-1));
+    if(counter > 0){
+var blockLastTop = parseInt(window.getComputedStyle(blockLast).getPropertyValue("top"));
+var holeLastTop = parseInt(window.getComputedStyle(holeLast).getPropertyValue("top"));
+        }
+    if(blockLastTop < 400 || counter == 0){
+var block = document.createElement("div");
+var hole = document.createElement("div");
+block.setAttribute("class", "block");
+block.setAttribute("id", "block"+counter);
+hole.setAttribute("class", "hole");
+hole.setAttribute("id", "hole"+counter);
+block.style.top = blockLastTop + 100 + "px";
+hole.style.top = holeLastTop + 100 + "px";
+var random = Math.floor(Math.random() * 360);
+hole.style.left = random + "px";
+game.appendChild(block);
+game.appendChild(hole);
+counter++;
+        }
+}, 1);
